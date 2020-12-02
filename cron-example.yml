@@ -1,0 +1,23 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: pi
+spec:
+  schedule: "*/1 * * * *"
+  concurrencyPolicy: "Replace"
+  startingDeadlineSecounds: 200
+  suspend: true
+  successfulJobsHistoryLimit: 3
+  failedJobdsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            parent: "cronjobpi"
+        spec:
+          containers:
+          - name: pi
+            image: perl
+            command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
+          restartPolicy: OnFailure
