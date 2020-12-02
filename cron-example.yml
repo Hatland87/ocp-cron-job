@@ -1,23 +1,22 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: pi
+  name: hello-cron
 spec:
-  schedule: "*/1 * * * *"
+  schedule: "* * * * *"  
   concurrencyPolicy: "Replace"
-  startingDeadlineSecounds: 200
-  suspend: true
-  successfulJobsHistoryLimit: 3
-  failedJobdsHistoryLimit: 1
-  jobTemplate:
+  successfulJobsHistoryLimit: 3 
+  failedJobsHistoryLimit: 1     
+  jobTemplate:             
     spec:
       template:
         metadata:
-          labels:
-            parent: "cronjobpi"
+          labels:          
+            parent: "cronjob-hello"
         spec:
           containers:
-          - name: pi
-            image: perl
-            command: ["perl", "-Mbignum=bpi", "-wle", "print bpi(2000)"]
-          restartPolicy: OnFailure
+          - name: hello-cron
+            image: quay.io/hatland87/hello-cron
+            command:
+              - "/opt/script.sh"
+          restartPolicy: OnFailure 

@@ -1,0 +1,19 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello2
+spec:
+  parallelism: 1    
+  completions: 1    
+  activeDeadlineSeconds: 1800 
+  backoffLimit: 6   
+  template:         
+    metadata:
+      name: hello2
+    spec:
+      containers:
+      - name: hello2
+        image: quay.io/hatland87/hello-cron
+        command:
+          - "/opt/script.sh"
+      restartPolicy: OnFailure

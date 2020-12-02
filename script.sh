@@ -1,5 +1,5 @@
 #!/bin/bash
 
 echo "Hello `date`" >> /tmp/hello.log
-echo "Write to logfile"
+echo "Content of logfile"
 cat /tmp/hello.log
